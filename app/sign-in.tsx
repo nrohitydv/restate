@@ -1,10 +1,29 @@
-import { ScrollView, Image, View, Text, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { login } from "@/lib/appwrite";
+import { useGlobalContext } from "@/lib/global-provider";
+import { Redirect } from "expo-router";
 const SignIn = () => {
-  const hanldeLogIn = () => {
-    // TODO: Implement Google Sign-In
+  const { isLogged, refetch, loading } = useGlobalContext();
+  if (isLogged && !loading) {
+    return <Redirect href="/" />;
+  }
+  const hanldeLogIn = async () => {
+    const result = await login();
+    if (result) {
+      refetch();
+    } else {
+      Alert.alert("Error", "Failed to login");
+    }
   };
   return (
     <SafeAreaView className="h-full bg-white">
@@ -19,8 +38,8 @@ const SignIn = () => {
             Welcome to Restate
           </Text>
           <Text className="text-3xl font-rubik-bold text-black-300 text-center mt-2">
-            Let's Get You Closer to {"\n"}{" "}
-            <Text className="text-primary-300">Your Ideal Home</Text>{" "}
+            Let's Get You Closer to {"\n"}
+            <Text className="text-primary-300">Your Ideal Home</Text>
           </Text>
           <Text className="text-lg font-rubik text-black-200 text-center mt-12">
             Login to Restate with Google
