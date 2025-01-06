@@ -19,11 +19,11 @@ export const avatar = new Avatars(client);
 export const account = new Account(client);
 
 export async function login() {
-  const user = await account.get();
-  if (user) {
-    console.log("User already logged in:", user);
-    return true;
-  }
+  // const user = await account.get();
+  // if (user) {
+  //   console.log("User already logged in:", user);
+  //   return true;
+  // }
 
   try {
     const redirectUri = Linking.createURL("/");
