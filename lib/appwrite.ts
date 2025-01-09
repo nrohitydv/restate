@@ -95,12 +95,12 @@ export async function getCurrentUser() {
 }
 export async function getLatestProperties() {
   try {
-    const properties = await databases.listDocuments(
+    const result = await databases.listDocuments(
       config.databaseId!,
       config.propertiesCollectionId!,
       [Query.orderAsc("$createdAt"), Query.limit(5)]
     );
-    return properties.documents;
+    return result.documents;
   } catch (error) {
     console.error(error);
     return [];
